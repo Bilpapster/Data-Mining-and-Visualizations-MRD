@@ -1,0 +1,24 @@
+# data cleaning code
+dictionary=applications_df.to_dict()
+all_schools=dictionary['Όνομα Σχολείου']
+
+
+for school in all_schools.values():
+  school=school.strip()                                                               #remove white spaces
+  school=school.upper()                                                               #all upper-case
+
+  translator = str.maketrans('', '', string.punctuation+"’")                          #remove punctuation
+  school=school.translate(translator)
+
+  school=school.replace("QUOT","")                                                    #remove quot
+
+  translator=str.maketrans({'Ά':'A','Έ':'Ε','Ή':'Η','Ί':'Ι','Ό':'Ο','Ύ':'Υ','Ώ':'Ω'}) #remove intonation
+  school=school.translate(translator)
+
+  translator=str.maketrans('AaBbGgDdEeZzHhJjIiCcLlMmNnXxOoPpRrSsTtUuFfQqYyWw',\
+                           'ΑΑΒΒΓΓΔΔΕΕΖΖΗΗΘΘΙΙΚΚΛΛΜΜΝΝΞΞΟΟΠΠΡΡΣΣΤΤΥΥΦΦΧΧΨΨΩΩ')        #convert english to greek
+  school=school.translate(translator)
+
+
+
+  print(school)
